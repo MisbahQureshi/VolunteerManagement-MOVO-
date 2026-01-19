@@ -24,6 +24,7 @@ public class AuthService {
         User u = new User();
         u.setUsername(req.getUsername());
         u.setPasswordHash(passwordEncoder.encode(req.getPassword()));
+        u.setRole("USER");
         userRepository.save(u);
     }
 }

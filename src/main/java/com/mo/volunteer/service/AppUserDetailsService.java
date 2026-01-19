@@ -22,7 +22,7 @@ public class AppUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return org.springframework.security.core.userdetails.User.withUsername(u.getUsername())
                 .password(u.getPasswordHash())
-                .roles("USER")
+                .roles(u.getRole())
                 .build();
     }
 }

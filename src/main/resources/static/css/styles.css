@@ -1,0 +1,84 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f6f6f6;
+}
+.center {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+.card {
+  background: white;
+  padding: 24px;
+  width: 360px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+}
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+button {
+  width: 100%;
+  margin-top: 16px;
+  padding: 10px;
+  border: 0;
+  border-radius: 6px;
+  background: #c40000;
+  color: white;
+  cursor: pointer;
+}
+button:hover {
+  opacity: 0.92;
+}
+.small {
+  margin-top: 12px;
+  font-size: 14px;
+}
+.error {
+  color: #c40000;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  background: white;
+}
+.btn {
+  padding: 10px 14px;
+  background: #c40000;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(240px, 1fr));
+  gap: 16px;
+  padding: 24px;
+}
+.dash-card {
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #111;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+.dash-card:hover {
+  transform: translateY(-1px);
+}

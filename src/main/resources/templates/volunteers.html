@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Volunteers</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 20px;
+        }
+        table {
+          border-collapse: collapse;
+          width: 100%;
+          max-width: 900px;
+        }
+        th,
+        td {
+          border: 1px solid #ddd;
+          padding: 10px;
+          text-align: left;
+        }
+        th {
+          background: #f4f4f4;
+        }
+        .actions {
+          display: flex;
+          gap: 8px;
+        }
+        a.button,
+        button {
+          padding: 8px 10px;
+          border-radius: 8px;
+          border: 1px solid #ccc;
+          background: #fff;
+          cursor: pointer;
+          text-decoration: none;
+          color: #111;
+        }
+        a.button:hover,
+        button:hover {
+          background: #f7f7f7;
+        }
+        .top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          max-width: 900px;
+          margin-bottom: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="top">
+    <h2>Volunteers</h2>
+    <div class="actions">
+        <a class="button" th:href="@{/dashboard}">Back</a>
+        <a class="button" th:href="@{/volunteers/new}">+ Add Volunteer</a>
+    </div>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First</th>
+        <th>Last</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th style="width: 220px">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="v : ${volunteers}">
+        <td th:text="${v.id}"></td>
+        <td th:text="${v.firstName}"></td>
+        <td th:text="${v.lastName}"></td>
+        <td th:text="${v.email}"></td>
+        <td th:text="${v.phone}"></td>
+        <td>
+            <div class="actions">
+                <a class="button" th:href="@{/volunteers/edit/{id}(id=${v.id})}"
+                >Edit</a
+                >
+
+                <form
+                        th:action="@{/volunteers/delete/{id}(id=${v.id})}"
+                        method="post"
+                        style="margin: 0"
+                >
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(volunteers)}">
+        <td colspan="6">No volunteers yet.</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

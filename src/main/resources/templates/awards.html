@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Awards</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 20px;
+        }
+        table {
+          border-collapse: collapse;
+          width: 100%;
+          max-width: 900px;
+        }
+        th,
+        td {
+          border: 1px solid #ddd;
+          padding: 10px;
+          text-align: left;
+        }
+        th {
+          background: #f4f4f4;
+        }
+        a.button{
+          padding: 8px 10px;
+          border-radius: 8px;
+          border: 1px solid #ccc;
+          background: #fff;
+          cursor: pointer;
+          text-decoration: none;
+          color: #111;
+        }
+        a.button:hover{
+          background: #f7f7f7;
+        }
+        .top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          max-width: 900px;
+          margin-bottom: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="top">
+    <h2>Awards (This Year)</h2>
+    <a class="button" th:href="@{/dashboard}">Back</a>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Student ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Total Hours</th>
+        <th>Award</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="r : ${rows}">
+        <td th:text="${r.studentId}"></td>
+        <td th:text="${r.firstName + ' ' + r.lastName}"></td>
+        <td th:text="${r.email}"></td>
+
+        <!-- minutes -> hours (with 2 decimals) -->
+        <td th:text="${#numbers.formatDecimal((r.totalMinutes / 60.0), 1, 2)}"></td>
+
+        <!-- Award rules:
+             >20 = Bronze
+             >30 = Silver
+             >50 = Gold
+        -->
+        <td th:text="${
+        (r.totalMinutes / 60.0) > 50 ? 'Gold' :
+        (r.totalMinutes / 60.0) > 30 ? 'Silver' :
+        (r.totalMinutes / 60.0) > 20 ? 'Bronze' : '-'
+      }"></td>
+    </tr>
+
+    <tr th:if="${#lists.isEmpty(rows)}">
+        <td colspan="5">No awards yet for this year.</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

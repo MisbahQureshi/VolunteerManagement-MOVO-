@@ -61,21 +61,23 @@
 <table>
     <thead>
     <tr>
-        <th>ID</th>
+        <th>Student ID</th>
         <th>First</th>
         <th>Last</th>
         <th>Email</th>
         <th>Phone</th>
+        <th>Event</th>
         <th style="width: 220px">Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="v : ${volunteers}">
-        <td th:text="${v.id}"></td>
+        <td th:text="${v.studentId}"></td>
         <td th:text="${v.firstName}"></td>
         <td th:text="${v.lastName}"></td>
         <td th:text="${v.email}"></td>
         <td th:text="${v.phone}"></td>
+        <td th:text="${v.event != null ? v.event.name : '-'}"></td>
         <td>
             <div class="actions">
                 <a class="button" th:href="@{/volunteers/edit/{id}(id=${v.id})}"
@@ -93,7 +95,7 @@
         </td>
     </tr>
     <tr th:if="${#lists.isEmpty(volunteers)}">
-        <td colspan="6">No volunteers yet.</td>
+        <td colspan="7">No volunteers yet.</td>
     </tr>
     </tbody>
 </table>

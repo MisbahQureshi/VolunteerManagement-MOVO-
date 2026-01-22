@@ -13,13 +13,13 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth->auth
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/login","/register",
-                                "/css/**","/js/**",
+                                "/login", "/register",
+                                "/css/**", "/js/**",
                                 "/swagger-ui**", "/v3/api-docs/**"
                         ).permitAll().
                         anyRequest().authenticated()
@@ -33,7 +33,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login?logout")
                         .permitAll());
 
-                return http.build();
+        return http.build();
     }
 
     @Bean

@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Login</title>
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body class="center">
-<div class="card">
-    <h1>Login</h1>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="center">
+    <div class="card">
+      <h1>Login</h1>
 
-    <div class="msg">
+      <div class="msg">
         <p th:if="${param.registered}">Account created. Please login.</p>
         <p th:if="${param.error}">Invalid username or password.</p>
         <p th:if="${param.logout}">You have been logged out.</p>
-    </div>
+      </div>
 
-    <form method="post" action="/login">
+      <form method="post" action="/login">
         <label>Username</label>
-        <input name="username" required>
+        <input name="username" required />
 
         <label>Password</label>
-        <input type="password" name="password" required>
+        <input type="password" name="password" required />
 
         <button type="submit">Login</button>
-    </form>
+      </form>
 
-    <p class="small">No account? <a href="/register">Create one</a></p>
-</div>
-</body>
+      <p class="small">No account? <a href="/register">Create one</a></p>
+    </div>
+  </body>
 </html>

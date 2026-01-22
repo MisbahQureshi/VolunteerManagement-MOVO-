@@ -29,8 +29,8 @@ public class AuthController {
 
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute RegisterRequest registerRequest,
-                           BindingResult bindingResult,
-                           Model model) {
+            BindingResult bindingResult,
+            Model model) {
         if (bindingResult.hasErrors()) {
             return "register";
         }

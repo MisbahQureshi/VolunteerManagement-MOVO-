@@ -17,8 +17,8 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void register(RegisterRequest req){
-        if(userRepository.existsByUsername(req.getUsername())){
+    public void register(RegisterRequest req) {
+        if (userRepository.existsByUsername(req.getUsername())) {
             throw new IllegalArgumentException("Username already exists.");
         }
         User u = new User();

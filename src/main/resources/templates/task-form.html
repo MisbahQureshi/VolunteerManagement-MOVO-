@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Task Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .wrap {
+        max-width: 520px;
+      }
+      label {
+        display: block;
+        margin-top: 12px;
+        font-weight: 600;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin-top: 6px;
+        font-family: Arial, sans-serif;
+      }
+      select {
+        width: 104%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin-top: 6px;
+      }
+      textarea {
+        resize: vertical;
+        min-height: 90px;
+      }
+      .actions {
+        margin-top: 16px;
+        display: flex;
+        gap: 10px;
+      }
+      a.button,
+      button {
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        background: #fff;
+        cursor: pointer;
+        text-decoration: none;
+        color: #111;
+      }
+      a.button:hover,
+      button:hover {
+        background: #f7f7f7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h2 th:text="${task.id == null ? 'Add Task' : 'Edit Task'}"></h2>
+
+      <form th:action="@{/tasks/save}" method="post" th:object="${task}">
+        <input type="hidden" th:field="*{id}" />
+
+        <label>Task Name</label>
+        <input type="text" th:field="*{name}" required />
+
+        <label>Description</label>
+        <textarea th:field="*{description}"></textarea>
+
+        <label>Event</label>
+        <select id="eventSelect" name="eventId" required>
+          <option value="" disabled th:selected="${task.event == null}">
+            -- Select Event --
+          </option>
+          <option
+            th:each="e : ${events}"
+            th:value="${e.id}"
+            th:text="${e.name + ' (' + e.eventDate + ')'}"
+            th:selected="${task.event != null and task.event.id == e.id}"
+          ></option>
+        </select>
+
+        <label>Volunteer</label>
+        <select id="volunteerSelect" name="volunteerId" required>
+          <option value="" disabled selected>-- Select Volunteer --</option>
+
+          <!-- For edit page preload (server side) -->
+          <option
+            th:if="${volunteers != null}"
+            th:each="v : ${volunteers}"
+            th:value="${v.id}"
+            th:text="${v.studentId + ' - ' + v.firstName + ' ' + v.lastName}"
+            th:selected="${task.volunteer != null and task.volunteer.id == v.id}"
+          ></option>
+        </select>
+
+        <div class="actions">
+          <button type="submit">Save</button>
+          <a class="button" th:href="@{/tasks}">Cancel</a>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      const eventSelect = document.getElementById("eventSelect");
+      const volunteerSelect = document.getElementById("volunteerSelect");
+
+      async function loadVolunteers(eventId, selectedVolunteerId) {
+        // reset dropdown
+        volunteerSelect.innerHTML = `<option value="" disabled selected>-- Select Volunteer --</option>`;
+        if (!eventId) return;
+
+        const res = await fetch(`/tasks/volunteers?eventId=${eventId}`);
+        const data = await res.json();
+
+        data.forEach((v) => {
+          const opt = document.createElement("option");
+          opt.value = v.id;
+          opt.textContent = `${v.studentId} - ${v.firstName} ${v.lastName}`;
+          if (
+            selectedVolunteerId &&
+            String(v.id) === String(selectedVolunteerId)
+          ) {
+            opt.selected = true;
+          }
+          volunteerSelect.appendChild(opt);
+        });
+      }
+
+      // when event changes, load volunteers
+      eventSelect.addEventListener("change", () =>
+        loadVolunteers(eventSelect.value)
+      );
+
+      // If editing and event is already selected but volunteers were not preloaded, you could auto-load:
+      // (Usually edit route already sends volunteers in model, so this isn't needed)
+    </script>
+  </body>
+</html>

@@ -24,7 +24,7 @@ public class Event {
     @Column(length = 255)
     private String location;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)  // yyyy-MM-dd
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) // yyyy-MM-dd
     private LocalDate eventDate;
 
     @Column(length = 500)

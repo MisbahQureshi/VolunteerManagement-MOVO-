@@ -1,67 +1,67 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <title>Volunteer Form</title>
     <style>
-        body {
-          font-family: Arial, sans-serif;
-          margin: 20px;
-        }
-        .wrap {
-          max-width: 520px;
-        }
-        label {
-          display: block;
-          margin-top: 12px;
-          font-weight: 600;
-        }
-        input {
-          width: 100%;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 8px;
-          margin-top: 6px;
-        }
-        select{
-          width: 104%;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 8px;
-          margin-top: 6px;
-        }
-        .actions {
-          margin-top: 16px;
-          display: flex;
-          gap: 10px;
-        }
-        a.button,
-        button {
-          padding: 8px 10px;
-          border-radius: 8px;
-          border: 1px solid #ccc;
-          background: #fff;
-          cursor: pointer;
-          text-decoration: none;
-          color: #111;
-        }
-        a.button:hover,
-        button:hover {
-          background: #f7f7f7;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .wrap {
+        max-width: 520px;
+      }
+      label {
+        display: block;
+        margin-top: 12px;
+        font-weight: 600;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin-top: 6px;
+      }
+      select {
+        width: 104%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin-top: 6px;
+      }
+      .actions {
+        margin-top: 16px;
+        display: flex;
+        gap: 10px;
+      }
+      a.button,
+      button {
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        background: #fff;
+        cursor: pointer;
+        text-decoration: none;
+        color: #111;
+      }
+      a.button:hover,
+      button:hover {
+        background: #f7f7f7;
+      }
     </style>
-</head>
-<body>
-<div class="wrap">
-    <h2
-            th:text="${volunteer.id == null ? 'Add Volunteer' : 'Edit Volunteer'}"
-    ></h2>
+  </head>
+  <body>
+    <div class="wrap">
+      <h2
+        th:text="${volunteer.id == null ? 'Add Volunteer' : 'Edit Volunteer'}"
+      ></h2>
 
-    <form
-            th:action="@{/volunteers/save}"
-            method="post"
-            th:object="${volunteer}"
-    >
+      <form
+        th:action="@{/volunteers/save}"
+        method="post"
+        th:object="${volunteer}"
+      >
         <input type="hidden" th:field="*{id}" />
 
         <label>First Name</label>
@@ -81,14 +81,16 @@
 
         <label>Event</label>
         <select name="eventId" required>
-            <option value="" disabled
-                    th:selected="${volunteer.event == null}">-- Select Event --</option>
+          <option value="" disabled th:selected="${volunteer.event == null}">
+            -- Select Event --
+          </option>
 
-            <option th:each="e : ${events}"
-                    th:value="${e.id}"
-                    th:text="${e.name + ' (' + e.eventDate + ')'}"
-                    th:selected="${volunteer.event != null and volunteer.event.id == e.id}">
-            </option>
+          <option
+            th:each="e : ${events}"
+            th:value="${e.id}"
+            th:text="${e.name + ' (' + e.eventDate + ')'}"
+            th:selected="${volunteer.event != null and volunteer.event.id == e.id}"
+          ></option>
         </select>
 
         <label>Time In</label>
@@ -98,10 +100,10 @@
         <input type="datetime-local" th:field="*{timeOut}" />
 
         <div class="actions">
-            <button type="submit">Save</button>
-            <a class="button" th:href="@{/volunteers}">Cancel</a>
+          <button type="submit">Save</button>
+          <a class="button" th:href="@{/volunteers}">Cancel</a>
         </div>
-    </form>
-</div>
-</body>
+      </form>
+    </div>
+  </body>
 </html>

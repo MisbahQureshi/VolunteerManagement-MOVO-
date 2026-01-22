@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tasks</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 900px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+      }
+      th {
+        background: #f4f4f4;
+      }
+      .actions {
+        display: flex;
+        gap: 8px;
+      }
+      a.button,
+      button {
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        background: #fff;
+        cursor: pointer;
+        text-decoration: none;
+        color: #111;
+      }
+      a.button:hover,
+      button:hover {
+        background: #f7f7f7;
+      }
+      .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 900px;
+        margin-bottom: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top">
+      <h2>Tasks</h2>
+      <div class="actions">
+        <a class="button" th:href="@{/dashboard}">Back</a>
+        <a class="button" th:href="@{/tasks/new}">+ Add Task</a>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Task ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Event</th>
+          <th>Volunteer</th>
+          <th style="width: 220px">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="t : ${tasks}">
+          <td th:text="${t.id}"></td>
+          <td th:text="${t.name}"></td>
+          <td th:text="${t.description}"></td>
+          <td th:text="${t.event != null ? t.event.name : '-'}"></td>
+          <td
+            th:text="${t.volunteer != null ? (t.volunteer.firstName + ' ' + t.volunteer.lastName) : '-'}"
+          ></td>
+          <td>
+            <div class="actions">
+              <a class="button" th:href="@{/tasks/edit/{id}(id=${t.id})}"
+                >Edit</a
+              >
+              <form
+                th:action="@{/tasks/delete/{id}(id=${t.id})}"
+                method="post"
+                style="margin: 0"
+              >
+                <button type="submit">Delete</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(tasks)}">
+          <td colspan="6">No tasks yet.</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

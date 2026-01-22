@@ -1,29 +1,37 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Register</title>
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body class="center">
-<div class="card">
-    <h1>Create Account</h1>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="center">
+    <div class="card">
+      <h1>Create Account</h1>
 
-    <p class="error" th:if="${error}" th:text="${error}"></p>
+      <p class="error" th:if="${error}" th:text="${error}"></p>
 
-    <form method="post" action="/register" th:object="${registerRequest}">
+      <form method="post" action="/register" th:object="${registerRequest}">
         <label>Username</label>
-        <input th:field="*{username}" required>
-        <p class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+        <input th:field="*{username}" required />
+        <p
+          class="error"
+          th:if="${#fields.hasErrors('username')}"
+          th:errors="*{username}"
+        ></p>
 
         <label>Password</label>
-        <input type="password" th:field="*{password}" required>
-        <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+        <input type="password" th:field="*{password}" required />
+        <p
+          class="error"
+          th:if="${#fields.hasErrors('password')}"
+          th:errors="*{password}"
+        ></p>
 
         <button type="submit">Register</button>
-    </form>
+      </form>
 
-    <p class="small">Already have an account? <a href="/login">Login</a></p>
-</div>
-</body>
+      <p class="small">Already have an account? <a href="/login">Login</a></p>
+    </div>
+  </body>
 </html>

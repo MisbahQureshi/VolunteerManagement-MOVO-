@@ -23,11 +23,10 @@ public class AwardController {
     public String awards(Model model) {
 
         LocalDateTime start = LocalDate.now().withDayOfYear(1).atStartOfDay();
-        LocalDateTime end   = start.plusYears(1);
+        LocalDateTime end = start.plusYears(1);
 
         List<AwardRow> rows = volunteerRepository.awardRowsForYear(start, end, 20L * 60L);
         model.addAttribute("rows", rows);
         return "awards";
     }
 }
-

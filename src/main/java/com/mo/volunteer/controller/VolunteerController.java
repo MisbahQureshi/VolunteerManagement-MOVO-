@@ -23,7 +23,7 @@ public class VolunteerController {
     }
 
     @GetMapping
-    public String list(Model model){
+    public String list(Model model) {
         model.addAttribute("volunteers", volunteerRepository.findAll());
         return "volunteers";
     }
@@ -31,16 +31,18 @@ public class VolunteerController {
     @GetMapping("/new")
     public String createForm(Model model) {
         model.addAttribute("volunteer", new Volunteer());
-        model.addAttribute("events", eventRepository.findByEventDateGreaterThanEqualOrderByEventDateAsc(LocalDate.now()));
+        model.addAttribute("events",
+                eventRepository.findByEventDateGreaterThanEqualOrderByEventDateAsc(LocalDate.now()));
         return "volunteer-form";
     }
 
     @GetMapping("/edit/{id}")
-    public String editForm(@PathVariable Long id, Model model){
+    public String editForm(@PathVariable Long id, Model model) {
         Volunteer v = volunteerRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Volunteer not found: " + id));
         model.addAttribute("volunteer", v);
-        model.addAttribute("events", eventRepository.findByEventDateGreaterThanEqualOrderByEventDateAsc(LocalDate.now()));
+        model.addAttribute("events",
+                eventRepository.findByEventDateGreaterThanEqualOrderByEventDateAsc(LocalDate.now()));
         return "volunteer-form";
     }
 

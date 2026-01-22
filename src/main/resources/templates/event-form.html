@@ -1,60 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <title>Event Form</title>
     <style>
-        body {
-          font-family: Arial, sans-serif;
-          margin: 20px;
-        }
-        .wrap {
-          max-width: 520px;
-        }
-        label {
-          display: block;
-          margin-top: 12px;
-          font-weight: 600;
-        }
-        input,
-        textarea {
-          width: 100%;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 8px;
-          margin-top: 6px;
-          box-sizing: border-box;
-          font-family: inherit;
-        }
-        textarea {
-          resize: vertical;
-        }
-        .actions {
-          margin-top: 16px;
-          display: flex;
-          gap: 10px;
-        }
-        a.button,
-        button {
-          padding: 8px 10px;
-          border-radius: 8px;
-          border: 1px solid #ccc;
-          background: #fff;
-          cursor: pointer;
-          text-decoration: none;
-          color: #111;
-        }
-        a.button:hover,
-        button:hover {
-          background: #f7f7f7;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .wrap {
+        max-width: 520px;
+      }
+      label {
+        display: block;
+        margin-top: 12px;
+        font-weight: 600;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin-top: 6px;
+        box-sizing: border-box;
+        font-family: inherit;
+      }
+      textarea {
+        resize: vertical;
+      }
+      .actions {
+        margin-top: 16px;
+        display: flex;
+        gap: 10px;
+      }
+      a.button,
+      button {
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        background: #fff;
+        cursor: pointer;
+        text-decoration: none;
+        color: #111;
+      }
+      a.button:hover,
+      button:hover {
+        background: #f7f7f7;
+      }
     </style>
-</head>
-<body>
-<div class="wrap">
-    <h2 th:text="${event.id == null ? 'Add Event' : 'Edit Event'}"></h2>
+  </head>
+  <body>
+    <div class="wrap">
+      <h2 th:text="${event.id == null ? 'Add Event' : 'Edit Event'}"></h2>
 
-    <form th:action="@{/events/save}" method="post" th:object="${event}">
+      <form th:action="@{/events/save}" method="post" th:object="${event}">
         <input type="hidden" th:field="*{id}" />
 
         <label>Event Name</label>
@@ -70,10 +70,10 @@
         <textarea th:field="*{description}" rows="4"></textarea>
 
         <div class="actions">
-            <button type="submit">Save</button>
-            <a class="button" th:href="@{/events}">Cancel</a>
+          <button type="submit">Save</button>
+          <a class="button" th:href="@{/events}">Cancel</a>
         </div>
-    </form>
-</div>
-</body>
+      </form>
+    </div>
+  </body>
 </html>
